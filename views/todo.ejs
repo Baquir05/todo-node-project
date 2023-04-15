@@ -7,7 +7,7 @@
   <style>
     /* Custom background image */
     body {
-      background-image: url('https://assets.justinmind.com/wp-content/uploads/2020/02/website-background-design-guide-768x492_optimized.png');
+      background-image: url('https://static-cse.canva.com/blob/571508/Patterns303.jpg');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
@@ -94,4 +94,9 @@
 
     document.getElementById('todoList').addEventListener('click', function(e) {
       if (e.target.classList.contains('delete')) {
-        e.target
+        e.target.parentElement.remove();
+      }
+    });
+  </script>
+</body>
+</
