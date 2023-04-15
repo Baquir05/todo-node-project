@@ -1,50 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>My Todo App</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="/styles/todo.css">
 </head>
+
 <body>
-  <div class="container mt-5">
-    <h1 class="text-center mb-4">My Todo List</h1>
-    <form class="mb-3">
-      <div class="form-group">
-        <input type="text" class="form-control" id="todoInput" placeholder="Add a task...">
-      </div>
-      <button type="submit" class="btn btn-primary btn-block">Add Task</button>
+    <h1 class="title">Todo App</h1>
+    <form class="form" action="/todos" method="post">
+        <input class="input" type="text" name="task" id="task" placeholder="Enter task" required>
+        <button class="add-btn" type="submit">Add Task</button>
     </form>
-    <ul class="list-group" id="todoList">
-      <!-- Todo items will be dynamically added here -->
+    <ul class="task-list">
+        <% todos.forEach(todo => { %>
+        <li class="task-item" id="<%= todo._id %>">
+            <span class="task-name"><%= todo.task %></span>
+            <button class="delete-btn" onclick="deleteTask('<%= todo._id %>')">Delete</button>
+        </li>
+        <% }) %>
     </ul>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    document.querySelector('form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const input = document.getElementById('todoInput');
-      const todoList = document.getElementById('todoList');
-      const newTask = input.value.trim();
-      if (newTask !== '') {
-        const listItem = document.createElement('li');
-        listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-        listItem.innerHTML = `
-          ${newTask}
-          <span class="badge badge-danger delete"><i class="fas fa-trash-alt"></i></span>
-        `;
-        todoList.appendChild(listItem);
-        input.value = '';
-      }
-    });
-
-    document.getElementById('todoList').addEventListener('click', function(e) {
-      if (e.target.classList.contains('delete')) {
-        e.target.parentElement.remove();
-      }
-    });
-  </script>
+    <script>
+        function deleteTask(taskId) {
+            // Send a DELETE request to the server
+            fetch(`/todos/${taskId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Remove the task from the DOM
+                        const taskItem = document.getElementById(taskId);
+                        taskItem.parentNode.removeChild(taskItem);
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
 </body>
+
 </html>
