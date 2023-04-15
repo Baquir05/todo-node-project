@@ -1,82 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Todo List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f6f6f6;
-        }
+<html>
 
-        .title {
-            text-align: center;
-            color: #333;
-        }
+    <head>
+        <title>My To-Do List</title>
+        <style>
+            a {
+                text-decoration: none;
+                color: black;
+            }
 
-        .form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
+        </style>
+    </head>
 
-        .input {
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 3px;
-            margin-right: 10px;
-            flex: 1;
-        }
+    <body>
+        <h1>My First project went well!!!!</h1>
+        <ul>
+            <% todolist.forEach(function(todo, index) { %>
+            <li>
+                <a href="/todo/delete/<%= index %>">✘</a>
+                <a href="/todo/<%= index %>">✎</a>
+                <%- todo %>
+            </li>
+            <% }); %>
+        </ul>
 
-        .add-btn {
-            padding: 10px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .task-list {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-
-        .task-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 3px;
-            margin-bottom: 10px;
-        }
-
-        .task-name {
-            flex: 1;
-            margin-right: 10px;
-        }
-    </style>
-</head>
-
-<body>
-    <h1 class="title">Todo List</h1>
-    <form class="form" action="/todos" method="post">
-        <input class="input" type="text" name="task" id="task" placeholder="Enter task" required>
-        <button class="add-btn" type="submit">Add Task</button>
-    </form>
-    <ul class="task-list">
-        <% todos.forEach(todo => { %>
-        <li class="task-item">
-            <span class="task-name"><%= todo.task %></span>
-        </li>
-        <% }) %>
-    </ul>
-</body>
+        <form action="/todo/add/" method="post">
+            <p>
+                <label for="newtodo">What shoud I do?</label>
+                <input type="text" name="newtodo" id="newtodo" autofocus />
+                <input type="submit" value="Add" />
+            </p>
+        </form>
+    </body>
 
 </html>
