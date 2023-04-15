@@ -4,9 +4,55 @@
   <title>My Todo App</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Custom background image */
+    body {
+      background-image: url('https://example.com/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Custom styles for todo app */
+    .container {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      color: #333;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    #todoInput {
+      border-radius: 5px;
+    }
+
+    .list-group-item {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .list-group-item:hover {
+      background-color: #f8f9fa;
+    }
+
+    .delete {
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div class="container mt-5">
+  <div class="container">
     <h1 class="text-center mb-4">My Todo List</h1>
     <form class="mb-3">
       <div class="form-group">
