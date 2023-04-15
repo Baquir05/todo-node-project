@@ -3,45 +3,80 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Todo App</title>
-    <link rel="stylesheet" href="/styles/todo.css">
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+        }
+
+        .title {
+            text-align: center;
+            color: #333;
+        }
+
+        .form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .input {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        .add-btn {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        .task-name {
+            flex: 1;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 class="title">Todo App</h1>
+    <h1 class="title">Todo List</h1>
     <form class="form" action="/todos" method="post">
         <input class="input" type="text" name="task" id="task" placeholder="Enter task" required>
         <button class="add-btn" type="submit">Add Task</button>
     </form>
     <ul class="task-list">
         <% todos.forEach(todo => { %>
-        <li class="task-item" id="<%= todo._id %>">
+        <li class="task-item">
             <span class="task-name"><%= todo.task %></span>
-            <button class="delete-btn" onclick="deleteTask('<%= todo._id %>')">Delete</button>
         </li>
         <% }) %>
     </ul>
-
-    <script>
-        function deleteTask(taskId) {
-            // Send a DELETE request to the server
-            fetch(`/todos/${taskId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Remove the task from the DOM
-                        const taskItem = document.getElementById(taskId);
-                        taskItem.parentNode.removeChild(taskItem);
-                    }
-                })
-                .catch(error => console.error(error));
-        }
-    </script>
 </body>
 
 </html>
